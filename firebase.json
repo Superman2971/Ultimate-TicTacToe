@@ -1,0 +1,9 @@
+{
+  "firebase": "ttt-ultimate",
+  "public": ".",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}

@@ -1,11 +1,27 @@
-var TTTapp = angular.module("TTT",[]);
-
-// Created our controller
-TTTapp.controller("TTTcontroller",function($scope){
-
 	// REDO BOXES USING FOR LOOPS!!!
 	// MUST FIX CATSGAME ISSUE = running else when it shouldn't
 	// maybe also smaller catsgame testing with loop
+	// Add Firebase = WHAT DO I DO!!!!
+
+
+var TTTapp = angular.module("TTT",["firebase"]);
+
+// Created our controller
+TTTapp.controller("TTTcontroller",function($scope, $firebase){
+
+	// Variable for my Firebase
+	var Fire = new Firebase("https://ttt-ultimate.firebaseio.com/");
+
+	$scope.issues = $firebase(Fire);
+
+	$scope.addOne = function(){
+		//Add manually using standard JavaScript
+		Fire.push( {title:$scope.title, body:$scope.body} );
+		$scope.title = $scope.body = "";
+		// 	//Or use AngularFire methods like $add, $remove, $update etc.
+		// 	//$scope.chores.$add( {title:$scope.title, body:$scope.body} )
+	};
+
 
 	// Created all the boxes as objects
 	$scope.boxes = [
