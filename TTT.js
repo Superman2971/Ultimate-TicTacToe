@@ -1,10 +1,7 @@
-	// REDO BOXES USING FOR LOOPS!!!
 	// maybe also smaller catsgame testing with loop
 	// Add Firebase = WHAT DO I DO!!!!
 	// Add teh fighter & put case event scenario for CODES!!! = instant fatality or something
 	// ANIMATE THE WINNER
-	// Update Reset function
-	// implement the score adds
 	// CATSGAME = instead of checking we will just inform that noone won = removes scoreboard though :(
 
 var TTTapp = angular.module("TTT",["firebase"]);
@@ -111,8 +108,6 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 				box9.owner = winners[i][0].owner;
 				BigBox.owner = winners[i][0].owner;
 				big_winner();
-			} else {
-				console.log("no winner with this combo")
 			}
 		};
 		if (BigBox.owner == ""){
@@ -132,7 +127,6 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 			box7.owner = "";
 			box8.owner = "";
 			box9.owner = "";
-			ifBigCatsgame();
 		}
 	};
 
@@ -164,29 +158,36 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 		// Overall Winner Selection
 		for (var i=0; i<winners.length; i++){
 			if ((winners[i][0].owner == "P1" || winners[i][0].owner == "P2") && (winners[i][0].owner == winners[i][1].owner) && (winners[i][1].owner == winners[i][2].owner)){
-				alert("We have a winner = " + winners[i][0].owner)
+				$scope.new_game = true;
 				if (winners[i][0].owner == "P1") {
 					$scope.P1_win += 1;
+					clear("P1");
+					break;
 				} else {
 					$scope.P2_win += 1;
+					clear("P2");
+					break;
 				}
-				break;
-			} else {
-				console.log("no winner with this combo");
 			}
 		};
-		if ($scope.BigWinner == ""){
-			winCats(box1,box2,box3,box4,box5,box6,box7,box8,box9);
+		if ($scope.winners[i][0].owner == ""){
+			$scope.catsgames += 1;
+			clear("");
+			// winCats(box1,box2,box3,box4,box5,box6,box7,box8,box9);
 		}
 	};
 
-	// If this is a big catsgame - need to animate!
-	function ifBigCatsgame(){
-		alert("need to make all small tiles yellow .... and figure out if this was a big catsgame")
-	}
+	// Clear the board
+	function clear(value){
+		for (var i = 0; i<9; i++){
+			$scope.boxes[i].owner = value;
+			for (var j = 0; j<9; j++){
+				$scope.boxes[i].boxes[j].owner = value;
+			};
+		};
+	};
 
 	// Scoreboard
-	$scope.BigWinner = "";
 	$scope.P1_win = 0;
 	$scope.P2_win = 0;
 	$scope.catsgames = 0;
@@ -194,10 +195,17 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 	// Reset
 	$scope.reset = function(){
 		$scope.Player_Name = $scope.Player_Names[0];
-		$scope.BigWinner = "";
 		$scope.P1_win = 0;
 		$scope.P2_win = 0;
 		$scope.catsgames = 0;
+		clear("");
 	}
+
+	// New Game
+	$scope.new_game = false;
+	$scope.click_game = function(){
+		$scope.new_game = false;
+		clear("");
+	};
 
 });

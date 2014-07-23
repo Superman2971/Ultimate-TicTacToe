@@ -26,7 +26,8 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<h2>{{Player_Name | uppercase}}'S TURN</h2>
+				<button class="btn btn-success" ng-show="new_game" ng-click="click_game()">NEW GAME</button>
+				<h2 ng-hide="new_game">{{Player_Name | uppercase}}'S TURN</h2>
 			</div>
 			<div class="col-md-4"></div>
 		</div>
@@ -59,7 +60,7 @@
 				<h3>Catsgames: {{catsgames}}</h3>
 			</div>
 			<div class="col-sm-2">
-				<button class="btn btn-danger" ng-click="reset()">RESET</button>
+				<button class="btn btn-danger" ng-click="reset()">RESET SCORE</button>
 			</div>
 			<div class="col-sm-4"></div>
 		</div>
