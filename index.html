@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="TTT_app">
+<html ng-app="TTT">
 <head>
   <title>Tic Tac Toe Ultimate</title>
   <meta name="viewport" content"width=device-width, initial-scale=1.0"/>
@@ -10,21 +10,21 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="TTT.js"></script>
 </head>
-<body ng-controller="TTT_Ctrl">
+<body ng-controller="TTTcontroller">
 	<section class="container">
 		<!-- LOGO -->
-		<header class="row">
+		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<h1>TIC TAC TOE ULTIMATE</h1>
+				<h1>TIC TAC TOE ULTIMATE {{test}}</h1>
 			</div>
 			<div class="col-md-4"></div>
-		</header>
+		</div>
 		<!-- Player Turn -->
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<h2>Player X Turn</h2>
+				<h2>{{Player_Name | uppercase}}'S TURN</h2>
 			</div>
 			<div class="col-md-4"></div>
 		</div>
@@ -34,8 +34,8 @@
 				<!-- Game Board -->
 			<div class="col-sm-6">
 				<section class="game_board">
-						<div ng-repeat="(index, BigBox) in boxes" ng-class="{box: true}">
-							<div ng-repeat="(sml_index, SmallBox) in BigBox"  ng-class="{mini-box: true}">
+						<div ng-repeat="(big_index, BigBox) in boxes" ng-class="{box: true}">
+							<div ng-repeat="(small_index, SmallBox) in BigBox.boxes"  ng-class="{mini_box: true, yellow: SmallBox.owner=='', blue: SmallBox.owner=='P1', red: SmallBox.owner=='P2'}" id="{{SmallBox.ID}}" ng-click="claim(BigBox, SmallBox, SmallBox.owner)">
 							</div>
 						</div>
 					</section>
