@@ -5,81 +5,51 @@
 	// ANIMATE THE WINNER
 	// Update Reset function
 	// implement the score adds
+	// CATSGAME = instead of checking we will just inform that noone won = removes scoreboard though :(
 
 var TTTapp = angular.module("TTT",["firebase"]);
 
 // Created our controller
 TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
+	// CHAT FEATURE
 	// Variable for my Firebase
 	var Fire = new Firebase("https://ttt-ultimate.firebaseio.com/");
-
 	$scope.issues = $firebase(Fire);
-
 	$scope.addOne = function(){
 		//Add manually using standard JavaScript
 		Fire.push( {title:$scope.title, body:$scope.body} );
 		$scope.title = $scope.body = "";
 		// 	//Or use AngularFire methods like $add, $remove, $update etc.
 		// 	//$scope.chores.$add( {title:$scope.title, body:$scope.body} )
-
 	};
 
 
-	// Created all the boxes as objects
-	$scope.boxes = [
-			{owner: "", boxes:[
-				{owner:"",ID:"box1"},{owner:"",ID:"box2"},{owner:"",ID:"box3"},
-				{owner:"",ID:"box4"},{owner:"",ID:"box5"},{owner:"",ID:"box6"},
-				{owner:"",ID:"box7"},{owner:"",ID:"box8"},{owner:"",ID:"box9"}	
-			]},
-			{owner: "", boxes:[
-				{owner:"",ID:"box10"},{owner:"",ID:"box11"},{owner:"",ID:"box12"},
-				{owner:"",ID:"box13"},{owner:"",ID:"box14"},{owner:"",ID:"box15"},
-				{owner:"",ID:"box16"},{owner:"",ID:"box17"},{owner:"",ID:"box18"}
-			]},
-			{owner: "", boxes:[
-				{owner:"",ID:"box19"},{owner:"",ID:"box20"},{owner:"",ID:"box21"},
-				{owner:"",ID:"box22"},{owner:"",ID:"box23"},{owner:"",ID:"box24"},
-				{owner:"",ID:"box25"},{owner:"",ID:"box26"},{owner:"",ID:"box27"}
-			]},
-			{owner: "", boxes:[
-				{owner:"",ID:"box28"},{owner:"",ID:"box29"},{owner:"",ID:"box30"},
-				{owner:"",ID:"box31"},{owner:"",ID:"box32"},{owner:"",ID:"box33"},
-				{owner:"",ID:"box34"},{owner:"",ID:"box35"},{owner:"",ID:"box36"}
-			]},
-			{owner: "", boxes:[
-				{owner:"",ID:"box37"},{owner:"",ID:"box38"},{owner:"",ID:"box39"},
-				{owner:"",ID:"box40"},{owner:"",ID:"box41"},{owner:"",ID:"box42"},
-				{owner:"",ID:"box43"},{owner:"",ID:"box44"},{owner:"",ID:"box45"}
-			]},
-			{owner: "", boxes:[
-				{owner:"",ID:"box46"},{owner:"",ID:"box47"},{owner:"",ID:"box48"},
-				{owner:"",ID:"box49"},{owner:"",ID:"box50"},{owner:"",ID:"box51"},
-				{owner:"",ID:"box52"},{owner:"",ID:"box53"},{owner:"",ID:"box54"}
-			]},
-			{owner: "", boxes:[
-				{owner:"",ID:"box55"},{owner:"",ID:"box56"},{owner:"",ID:"box57"},
-				{owner:"",ID:"box58"},{owner:"",ID:"box59"},{owner:"",ID:"box60"},
-				{owner:"",ID:"box61"},{owner:"",ID:"box62"},{owner:"",ID:"box63"}
-			]},
-			{owner: "", boxes:[
-				{owner:"",ID:"box64"},{owner:"",ID:"box65"},{owner:"",ID:"box66"},
-				{owner:"",ID:"box67"},{owner:"",ID:"box68"},{owner:"",ID:"box69"},
-				{owner:"",ID:"box70"},{owner:"",ID:"box71"},{owner:"",ID:"box72"}
-			]},
-			{owner: "", boxes:[
-				{owner:"",ID:"box73"},{owner:"",ID:"box74"},{owner:"",ID:"box75"},
-				{owner:"",ID:"box76"},{owner:"",ID:"box77"},{owner:"",ID:"box78"},
-				{owner:"",ID:"box79"},{owner:"",ID:"box80"},{owner:"",ID:"box81"}
-			]}
-	];
+	// Constructor function to develop the game board objects (BigBoxes and SmallBoxes)
+	$scope.boxes = [];
+	function newBigBox(){
+		this.owner = "";
+		this.boxes = [];
+	};
+	function newSmallBox(){
+		this.owner = "";
+	};
+
+	for (var i = 0; i<9; i++){
+		var x = new newBigBox();
+		$scope.boxes.push(x);
+		for (var j = 0; j<9; j++){
+			var y = new newSmallBox();
+			$scope.boxes[i].boxes.push(y);
+		}
+	};
+	console.log($scope.boxes)
 
 	// Variable for the Player
 	$scope.Player_Name = "Player 1";
 
 	// Dynamic Player Names - this is the variable they change
-	$scope.Player_Names = ["Subzero", "Scorpion"]
+	$scope.Player_Names = ["Player 1", "Player 2"]
 
 	// Function to claim ownership over squares
 	$scope.claim = function(BigBox, SmallBox, small_owner){
@@ -141,9 +111,6 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 				box9.owner = winners[i][0].owner;
 				BigBox.owner = winners[i][0].owner;
 				big_winner();
-				console.log(winners[i][0].owner);
-				console.log(winners[i][1].owner);
-				console.log(winners[i][2].owner);
 			} else {
 				console.log("no winner with this combo")
 			}
@@ -165,6 +132,7 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 			box7.owner = "";
 			box8.owner = "";
 			box9.owner = "";
+			ifBigCatsgame();
 		}
 	};
 
@@ -202,6 +170,7 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 				} else {
 					$scope.P2_win += 1;
 				}
+				break;
 			} else {
 				console.log("no winner with this combo");
 			}
@@ -211,6 +180,11 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 		}
 	};
 
+	// If this is a big catsgame - need to animate!
+	function ifBigCatsgame(){
+		alert("need to make all small tiles yellow .... and figure out if this was a big catsgame")
+	}
+
 	// Scoreboard
 	$scope.BigWinner = "";
 	$scope.P1_win = 0;
@@ -219,11 +193,11 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
 	// Reset
 	$scope.reset = function(){
+		$scope.Player_Name = $scope.Player_Names[0];
 		$scope.BigWinner = "";
 		$scope.P1_win = 0;
 		$scope.P2_win = 0;
 		$scope.catsgames = 0;
-		replay();
 	}
 
 });

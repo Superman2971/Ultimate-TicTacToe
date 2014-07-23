@@ -27,7 +27,7 @@ body{
   overflow: hidden;
 }
 .mini_box:hover{
-  border: 1px solid red;
+  border: 1px solid black;
   margin: 1;
 }
 .yellow{
