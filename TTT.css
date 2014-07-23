@@ -27,7 +27,7 @@ body{
   overflow: hidden;
 }
 .mini_box:hover{
-  border: 1px solid black;
+  border: 1px solid red;
   margin: 1;
 }
 .yellow{
@@ -41,4 +41,30 @@ body{
 .red{
   background-color: red;
   transition: background-color 1s ease;
+}
+li{
+  list-style: none;
+  text-align: left;
+}
+
+/* --------- @Media Query --------- */
+@media only screen and (max-width : 990px) {
+  .game_board {
+    width: 320px;
+    height: 320px;
+    margin: 2em auto;
+  }
+  .box{
+  width: 30%;
+  height: 30%;
+  margin: 10px;
+  display: inline-block;
+  overflow: hidden;
+}
+.mini_box{
+  width: 30%;
+  height: 30%;
+  margin: 2px;
+  display: inline-block;
+  overflow: hidden;
 }

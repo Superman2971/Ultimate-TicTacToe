@@ -2,7 +2,9 @@
 	// maybe also smaller catsgame testing with loop
 	// Add Firebase = WHAT DO I DO!!!!
 	// Add teh fighter & put case event scenario for CODES!!! = instant fatality or something
-
+	// ANIMATE THE WINNER
+	// Update Reset function
+	// implement the score adds
 
 var TTTapp = angular.module("TTT",["firebase"]);
 
@@ -20,6 +22,7 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 		$scope.title = $scope.body = "";
 		// 	//Or use AngularFire methods like $add, $remove, $update etc.
 		// 	//$scope.chores.$add( {title:$scope.title, body:$scope.body} )
+
 	};
 
 
@@ -76,7 +79,7 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 	$scope.Player_Name = "Player 1";
 
 	// Dynamic Player Names - this is the variable they change
-	$scope.Player_Names = ["Player 1", "Player 2"]
+	$scope.Player_Names = ["Subzero", "Scorpion"]
 
 	// Function to claim ownership over squares
 	$scope.claim = function(BigBox, SmallBox, small_owner){
@@ -194,11 +197,33 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 		for (var i=0; i<winners.length; i++){
 			if ((winners[i][0].owner == "P1" || winners[i][0].owner == "P2") && (winners[i][0].owner == winners[i][1].owner) && (winners[i][1].owner == winners[i][2].owner)){
 				alert("We have a winner = " + winners[i][0].owner)
+				if (winners[i][0].owner == "P1") {
+					$scope.P1_win += 1;
+				} else {
+					$scope.P2_win += 1;
+				}
 			} else {
-				winCats(box1,box2,box3,box4,box5,box6,box7,box8,box9);
+				console.log("no winner with this combo");
 			}
 		};
+		if ($scope.BigWinner == ""){
+			winCats(box1,box2,box3,box4,box5,box6,box7,box8,box9);
+		}
 	};
 
+	// Scoreboard
+	$scope.BigWinner = "";
+	$scope.P1_win = 0;
+	$scope.P2_win = 0;
+	$scope.catsgames = 0;
+
+	// Reset
+	$scope.reset = function(){
+		$scope.BigWinner = "";
+		$scope.P1_win = 0;
+		$scope.P2_win = 0;
+		$scope.catsgames = 0;
+		replay();
+	}
 
 });
