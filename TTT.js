@@ -1,7 +1,7 @@
 	// REDO BOXES USING FOR LOOPS!!!
-	// MUST FIX CATSGAME ISSUE = running else when it shouldn't
 	// maybe also smaller catsgame testing with loop
 	// Add Firebase = WHAT DO I DO!!!!
+	// Add teh fighter & put case event scenario for CODES!!! = instant fatality or something
 
 
 var TTTapp = angular.module("TTT",["firebase"]);
@@ -138,11 +138,16 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 				box9.owner = winners[i][0].owner;
 				BigBox.owner = winners[i][0].owner;
 				big_winner();
+				console.log(winners[i][0].owner);
+				console.log(winners[i][1].owner);
+				console.log(winners[i][2].owner);
 			} else {
-				console.log("numero dos");
-				winCats(box1,box2,box3,box4,box5,box6,box7,box8,box9);
+				console.log("no winner with this combo")
 			}
 		};
+		if (BigBox.owner == ""){
+			winCats(box1,box2,box3,box4,box5,box6,box7,box8,box9);
+		}
 	};
 
 	// Catsgame logic
