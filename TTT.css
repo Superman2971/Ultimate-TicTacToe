@@ -46,6 +46,9 @@ li{
   list-style: none;
   text-align: left;
 }
+.player{
+  border-radius: 50%;
+}
 
 /* --------- @Media Query --------- */
 @media only screen and (max-width : 990px) {
@@ -55,15 +58,15 @@ li{
     margin: 2em auto;
   }
   .box{
-  width: 30%;
-  height: 30%;
-  margin: 10px;
+  width: 36%;
+  height: 41%;
+  margin: -5px;
   display: inline-block;
   overflow: hidden;
 }
 .mini_box{
-  width: 30%;
-  height: 30%;
+  width: 23%;
+  height: 20%;
   margin: 2px;
   display: inline-block;
   overflow: hidden;

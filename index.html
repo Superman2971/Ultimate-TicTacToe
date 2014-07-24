@@ -27,27 +27,27 @@
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
 				<button class="btn btn-success" ng-show="new_game" ng-click="click_game()">NEW GAME</button>
-				<h2 ng-hide="new_game">{{Player_Name | uppercase}}'S TURN</h2>
+				<h2 ng-hide="new_game" ng-model="Player_Name">{{Player_Name | uppercase}}'S TURN</h2>
 			</div>
 			<div class="col-md-4"></div>
 		</div>
 		<!-- Game Board and Player Gifs -->
 		<div class="row">
-			<div class="col-sm-3 hidden-xs">
+			<div class="col-sm-3 hidden-xs blue player">
 				<h1>{{Player_Names[0]}}</h1>
 				<input class="name" ng-model="Player_Names[0]"/>
 				<h3>Wins: {{P1_win}}</h3>
 			</div>
 				<!-- Game Board -->
 			<div class="col-sm-6">
-				<section class="game_board">
+				<section class="game_board" ng-model="boxes">
 						<div ng-repeat="(big_index, BigBox) in boxes" ng-class="{box: true}">
 							<div ng-repeat="(small_index, SmallBox) in BigBox.boxes"  ng-class="{mini_box: true, yellow: SmallBox.owner=='', blue: SmallBox.owner=='P1', red: SmallBox.owner=='P2'}" id="{{SmallBox.ID}}" ng-click="claim(BigBox, SmallBox, SmallBox.owner)">
 							</div>
 						</div>
 					</section>
 			</div>
-			<div class="col-sm-3 hidden-xs">
+			<div class="col-sm-3 hidden-xs red player">
 				<h1>{{Player_Names[1]}}</h1>
 				<input class="name" ng-model="Player_Names[1]"/>
 				<h3>Wins: {{P2_win}}</h3>
@@ -55,14 +55,14 @@
 		</div>
 		<!-- Catsgame and RESET button -->
 		<div class="row">
-			<div class="col-sm-4"></div>
-			<div class="col-sm-2">
+			<div class="col-lg-4"></div>
+			<div class="col-lg-2">
 				<h3>Catsgames: {{catsgames}}</h3>
 			</div>
-			<div class="col-sm-2">
+			<div class="col-lg-2">
 				<button class="btn btn-danger" ng-click="reset()">RESET SCORE</button>
 			</div>
-			<div class="col-sm-4"></div>
+			<div class="col-lg-4"></div>
 		</div>
 		<!-- CHAT -->
 		<div class="row">

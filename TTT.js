@@ -1,8 +1,5 @@
-	// maybe also smaller catsgame testing with loop
+	// ANIMATE THE WINNER --> add crown ng-show maybe?
 	// Add Firebase = WHAT DO I DO!!!!
-	// Add teh fighter & put case event scenario for CODES!!! = instant fatality or something
-	// ANIMATE THE WINNER
-	// CATSGAME = instead of checking we will just inform that noone won = removes scoreboard though :(
 
 var TTTapp = angular.module("TTT",["firebase"]);
 
@@ -21,6 +18,9 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 		// 	//$scope.chores.$add( {title:$scope.title, body:$scope.body} )
 	};
 
+	//Testing Multiplayer stuff
+	$scope.remote_boxes = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/remote_boxes"));
+	$scope.remote_Player_Name = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/player"));
 
 	// Constructor function to develop the game board objects (BigBoxes and SmallBoxes)
 	$scope.boxes = [];
@@ -47,6 +47,16 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
 	// Dynamic Player Names - this is the variable they change
 	$scope.Player_Names = ["Player 1", "Player 2"]
+
+	// More multiplayer stuff --> Binding it!
+	$scope.remote_boxes.$bind($scope, "boxes");
+  $scope.$watch("boxes", function() {
+    console.log('Model changed!') ;
+  });
+	$scope.remote_Player_Name.$bind($scope, "Player_Name");
+  $scope.$watch("Player_Name", function() {
+    console.log('Player changed!') ;
+  });
 
 	// Function to claim ownership over squares
 	$scope.claim = function(BigBox, SmallBox, small_owner){
@@ -170,10 +180,9 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 				}
 			}
 		};
-		if ($scope.winners[i][0].owner == ""){
+		if ((box1.owner == "P1" || box1.owner == "P2") && (box2.owner == "P1" || box2.owner == "P2") && (box3.owner == "P1" || box3.owner == "P2") && (box4.owner == "P1" || box4.owner == "P2") && (box5.owner == "P1" || box5.owner == "P2") && (box6.owner == "P1" || box6.owner == "P2") && (box7.owner == "P1" || box7.owner == "P2") && (box8.owner == "P1" || box8.owner == "P2") && (box9.owner == "P1" || box9.owner == "P2")){
 			$scope.catsgames += 1;
 			clear("");
-			// winCats(box1,box2,box3,box4,box5,box6,box7,box8,box9);
 		}
 	};
 
