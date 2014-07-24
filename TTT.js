@@ -63,7 +63,7 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
 		// First checks if space is owned
 		if (small_owner == "P1" || small_owner == "P2"){
-			alert("Nope, pick another spot bro");
+			return false;
 		} else {
 			// Then gives small_ownership based on Player and changes turns
 			if ($scope.Player_Name == $scope.Player_Names[0]){
@@ -172,19 +172,26 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 				if (winners[i][0].owner == "P1") {
 					$scope.P1_win += 1;
 					clear("P1");
+					game_continue = false;
 					break;
 				} else {
 					$scope.P2_win += 1;
 					clear("P2");
+					game_continue = false;
 					break;
 				}
 			}
 		};
-		if ((box1.owner == "P1" || box1.owner == "P2") && (box2.owner == "P1" || box2.owner == "P2") && (box3.owner == "P1" || box3.owner == "P2") && (box4.owner == "P1" || box4.owner == "P2") && (box5.owner == "P1" || box5.owner == "P2") && (box6.owner == "P1" || box6.owner == "P2") && (box7.owner == "P1" || box7.owner == "P2") && (box8.owner == "P1" || box8.owner == "P2") && (box9.owner == "P1" || box9.owner == "P2")){
-			$scope.catsgames += 1;
-			clear("");
+		if (game_continue){
+			if ((box1.owner == "P1" || box1.owner == "P2") && (box2.owner == "P1" || box2.owner == "P2") && (box3.owner == "P1" || box3.owner == "P2") && (box4.owner == "P1" || box4.owner == "P2") && (box5.owner == "P1" || box5.owner == "P2") && (box6.owner == "P1" || box6.owner == "P2") && (box7.owner == "P1" || box7.owner == "P2") && (box8.owner == "P1" || box8.owner == "P2") && (box9.owner == "P1" || box9.owner == "P2")){
+				$scope.catsgames += 1;
+				clear("");
+			}			
 		}
 	};
+
+	// Game conitnue variable = stop the game if winner!
+	var game_continue = true;
 
 	// Clear the board
 	function clear(value){

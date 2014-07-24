@@ -71,3 +71,11 @@ li{
   display: inline-block;
   overflow: hidden;
 }
+
+/* TESTING */
+
+.player:hover {
+        -moz-box-shadow: 0px 0px 15px #0099ff;
+        -webkit-box-shadow: 0px 0px 15px #0099ff;
+        box-shadow: 0px 0px 15px #0099ff;
+}
