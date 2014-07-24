@@ -1,6 +1,3 @@
-	// ANIMATE THE WINNER --> add crown ng-show maybe?
-	// Add Firebase = WHAT DO I DO!!!!
-
 var TTTapp = angular.module("TTT",["firebase"]);
 
 // Created our controller
@@ -8,7 +5,7 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
 	// CHAT FEATURE
 	// Variable for my Firebase
-	var Fire = new Firebase("https://ttt-ultimate.firebaseio.com/");
+	var Fire = new Firebase("https://ttt-ultimate.firebaseio.com" + "/chat_room");
 	$scope.issues = $firebase(Fire);
 	$scope.addOne = function(){
 		//Add manually using standard JavaScript
