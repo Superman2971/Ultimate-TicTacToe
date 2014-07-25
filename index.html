@@ -79,11 +79,11 @@
 				<div ng-class="{chat_room: collapsed}" >
 					<ul class="well well-lg">
 						<li x-ng-repeat="i in issues">
-						{{i.title}} -- {{i.body}}
+						{{i.Player_Name}} -- {{i.body}}
 						</li>
 					</ul>
-					Title:
-					<input type="text" x-ng-model="title" />
+					Name:
+					<input type="text" x-ng-model="Player_Name" />
 					<br>
 					Body:
 					<textarea x-ng-model="body" rows="4" cols="30"></textarea>

@@ -4,21 +4,21 @@ var TTTapp = angular.module("TTT",["firebase"]);
 // Created our controller
 TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
-	// CHAT FEATURE
-	// Variable for my Firebase
-	var Fire = new Firebase("https://ttt-ultimate.firebaseio.com" + "/chat_room");
-	$scope.issues = $firebase(Fire);
-	$scope.addOne = function(){
-		//Adding manually using standard JavaScript
-		Fire.push( {title:$scope.title, body:$scope.body} );
-		$scope.title = $scope.body = "";
-	};
+	// // CHAT FEATURE
+	// // Variable for my Firebase
+	// var Fire = new Firebase("https://ttt-ultimate.firebaseio.com" + "/chat_room");
+	// $scope.issues = $firebase(Fire);
+	// $scope.addOne = function(){
+	// 	//Adding manually using standard JavaScript
+	// 	Fire.push( {Name:$scope.Player_Name, body:$scope.body} );
+	// 	$scope.Player_Name = $scope.body = "";
+	// };
 
-	//Testing Multiplayer stuff
-	$scope.remote_boxes = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/remote_boxes"));
-	$scope.remote_Player_Name = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/player"));
+	// //Testing Multiplayer stuff
+	// $scope.remote_boxes = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/remote_boxes"));
+	// $scope.remote_Player_Name = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/player"));
 
-	$scope.random_test = $scope.boxes;
+	// $scope.random_test = $scope.boxes;
 
 	// Constructor function to develop the game board objects (BigBoxes and SmallBoxes)
 	$scope.boxes = [];
@@ -46,15 +46,15 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 	// Dynamic Player Names - this is the variable they change
 	$scope.Player_Names = ["Player 1", "Player 2"]
 
-	// More multiplayer stuff --> Binding it!
-	$scope.remote_boxes.$bind($scope, "boxes");
-  $scope.$watch("boxes", function() {
-    return false;
-  });
-	$scope.remote_Player_Name.$bind($scope, "Player_Name");
-  $scope.$watch("Player_Name", function() {
-    return false;
-  });
+	// // More multiplayer stuff --> Binding it!
+	// $scope.remote_boxes.$bind($scope, "boxes");
+ //  $scope.$watch("boxes", function() {
+ //    return false;
+ //  });
+	// $scope.remote_Player_Name.$bind($scope, "Player_Name");
+ //  $scope.$watch("Player_Name", function() {
+ //    return false;
+ //  });
 
 	// Function to claim ownership over squares
 	$scope.claim = function(BigBox, SmallBox, small_owner){
@@ -68,12 +68,10 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 				SmallBox.owner = "P1";
 				$scope.Player_Name = $scope.Player_Names[1];
 				$scope.winner(BigBox);
-				$scope.$apply();
 			} else {
 				SmallBox.owner = "P2";
 				$scope.Player_Name = $scope.Player_Names[0];
 				$scope.winner(BigBox);
-				$scope.$apply();
 			}
 		}
 	};
@@ -118,6 +116,7 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 				box9.owner = winners[i][0].owner;
 				BigBox.owner = winners[i][0].owner;
 				big_winner();
+				break;
 			}
 		};
 		if (BigBox.owner == ""){
@@ -165,28 +164,45 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 			[box3,box5,box7]
 		];
 
+		// variables for who to give point to
+		var P1_Point = false;
+		var P2_Point = false;
+
 		// Overall Winner Selection
 		for (var i=0; i<winners.length; i++){
 			if ((winners[i][0].owner == "P1" || winners[i][0].owner == "P2") && (winners[i][0].owner == winners[i][1].owner) && (winners[i][1].owner == winners[i][2].owner)){
 				$scope.new_game = true;
 				if (winners[i][0].owner == "P1") {
-					$scope.P1_win += 1;
-					clear("P1");
+					P1_Point = true;
 					game_continue = false;
 					break;
 				} else {
-					$scope.P2_win += 1;
-					clear("P2");
+					P2_Point = true;
 					game_continue = false;
 					break;
 				}
 			}
 		};
+
+		// Separeted the catsgame from the loop, solving bug and making it conditional
 		if (game_continue){
 			if ((box1.owner == "P1" || box1.owner == "P2") && (box2.owner == "P1" || box2.owner == "P2") && (box3.owner == "P1" || box3.owner == "P2") && (box4.owner == "P1" || box4.owner == "P2") && (box5.owner == "P1" || box5.owner == "P2") && (box6.owner == "P1" || box6.owner == "P2") && (box7.owner == "P1" || box7.owner == "P2") && (box8.owner == "P1" || box8.owner == "P2") && (box9.owner == "P1" || box9.owner == "P2")){
 				$scope.catsgames += 1;
 				clear("");
 			}			
+		}
+
+		// Added here to remove point additions from the loop (fixed bug)
+		if (P1_Point == true){
+			console.log("There can be only one blue!");
+			$scope.P1_win += 1;
+			clear("P1");
+			P1_Point = false;
+		} else if (P2_Point == true){
+			console.log("There can be only one red!");
+			$scope.P2_win += 1;
+			clear("P2");
+			P2_Point = false;
 		}
 	};
 
