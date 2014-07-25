@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+=======
+	// maybe also smaller catsgame testing with loop
+	// Add Firebase = WHAT DO I DO!!!!
+	// Add teh fighter & put case event scenario for CODES!!! = instant fatality or something
+	// ANIMATE THE WINNER
+	// CATSGAME = instead of checking we will just inform that noone won = removes scoreboard though :(
+
+>>>>>>> test_branch
 var TTTapp = angular.module("TTT",["firebase"]);
 
 // Created our controller
@@ -184,6 +193,7 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 				}
 			}
 		};
+
 		if (game_continue){
 			if ((box1.owner == "P1" || box1.owner == "P2") && (box2.owner == "P1" || box2.owner == "P2") && (box3.owner == "P1" || box3.owner == "P2") && (box4.owner == "P1" || box4.owner == "P2") && (box5.owner == "P1" || box5.owner == "P2") && (box6.owner == "P1" || box6.owner == "P2") && (box7.owner == "P1" || box7.owner == "P2") && (box8.owner == "P1" || box8.owner == "P2") && (box9.owner == "P1" || box9.owner == "P2")){
 				$scope.catsgames += 1;
