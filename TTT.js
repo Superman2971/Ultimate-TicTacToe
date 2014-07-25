@@ -1,3 +1,4 @@
+// TESTRUN
 var TTTapp = angular.module("TTT",["firebase"]);
 
 // Created our controller
