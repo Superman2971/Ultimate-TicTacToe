@@ -13,7 +13,6 @@ video {
   width: auto;
   height: auto;
   z-index: -100;
-  background: url('/assets/images/polina.jpg') no-repeat;
   background-size: cover;
 }
 .game_board{
@@ -62,6 +61,15 @@ li{
 .player{
   border-radius: 50%;
 }
+.big_btn{
+  font-size: 30px;
+}
+.md_btn{
+  font-size: 20px;
+}
+.chat_room{
+  display: none;
+}
 
 /* --------- @Media Query --------- */
 @media only screen and (max-width : 990px) {
@@ -83,12 +91,4 @@ li{
   margin: 2px;
   display: inline-block;
   overflow: hidden;
-}
-
-/* TESTING */
-
-.player:hover {
-        -moz-box-shadow: 0px 0px 15px #0099ff;
-        -webkit-box-shadow: 0px 0px 15px #0099ff;
-        box-shadow: 0px 0px 15px #0099ff;
 }

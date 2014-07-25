@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-=======
-	// maybe also smaller catsgame testing with loop
-	// Add Firebase = WHAT DO I DO!!!!
-	// Add teh fighter & put case event scenario for CODES!!! = instant fatality or something
-	// ANIMATE THE WINNER
-	// CATSGAME = instead of checking we will just inform that noone won = removes scoreboard though :(
-
->>>>>>> test_branch
 var TTTapp = angular.module("TTT",["firebase"]);
 
 // Created our controller
@@ -17,16 +8,16 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 	var Fire = new Firebase("https://ttt-ultimate.firebaseio.com" + "/chat_room");
 	$scope.issues = $firebase(Fire);
 	$scope.addOne = function(){
-		//Add manually using standard JavaScript
+		//Adding manually using standard JavaScript
 		Fire.push( {title:$scope.title, body:$scope.body} );
 		$scope.title = $scope.body = "";
-		// 	//Or use AngularFire methods like $add, $remove, $update etc.
-		// 	//$scope.chores.$add( {title:$scope.title, body:$scope.body} )
 	};
 
 	//Testing Multiplayer stuff
 	$scope.remote_boxes = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/remote_boxes"));
 	$scope.remote_Player_Name = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/player"));
+
+	$scope.random_test = $scope.boxes;
 
 	// Constructor function to develop the game board objects (BigBoxes and SmallBoxes)
 	$scope.boxes = [];
@@ -57,15 +48,12 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 	// More multiplayer stuff --> Binding it!
 	$scope.remote_boxes.$bind($scope, "boxes");
   $scope.$watch("boxes", function() {
-    console.log('Model changed!') ;
+    return false;
   });
 	$scope.remote_Player_Name.$bind($scope, "Player_Name");
   $scope.$watch("Player_Name", function() {
-    console.log('Player changed!') ;
+    return false;
   });
-
-// $scope.items.$bind($scope, "remoteItems");
-// $scope.remoteItems.bar = "foo";  // new Firebase(URL + "/bar") is now "foo".
 
 	// Function to claim ownership over squares
 	$scope.claim = function(BigBox, SmallBox, small_owner){
@@ -193,7 +181,6 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 				}
 			}
 		};
-
 		if (game_continue){
 			if ((box1.owner == "P1" || box1.owner == "P2") && (box2.owner == "P1" || box2.owner == "P2") && (box3.owner == "P1" || box3.owner == "P2") && (box4.owner == "P1" || box4.owner == "P2") && (box5.owner == "P1" || box5.owner == "P2") && (box6.owner == "P1" || box6.owner == "P2") && (box7.owner == "P1" || box7.owner == "P2") && (box8.owner == "P1" || box8.owner == "P2") && (box9.owner == "P1" || box9.owner == "P2")){
 				$scope.catsgames += 1;
@@ -222,6 +209,8 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
 	// Reset
 	$scope.reset = function(){
+		game_continue = true;
+		$scope.new_game = false;
 		$scope.Player_Name = $scope.Player_Names[0];
 		$scope.P1_win = 0;
 		$scope.P2_win = 0;
@@ -232,8 +221,12 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 	// New Game
 	$scope.new_game = false;
 	$scope.click_game = function(){
+		game_continue = true;
 		$scope.new_game = false;
 		clear("");
 	};
+
+	// Collapsed Chat Room
+	$scope.collapsed = true;
 
 });
