@@ -55,6 +55,9 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
     console.log('Player changed!') ;
   });
 
+// $scope.items.$bind($scope, "remoteItems");
+// $scope.remoteItems.bar = "foo";  // new Firebase(URL + "/bar") is now "foo".
+
 	// Function to claim ownership over squares
 	$scope.claim = function(BigBox, SmallBox, small_owner){
 
@@ -67,10 +70,12 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 				SmallBox.owner = "P1";
 				$scope.Player_Name = $scope.Player_Names[1];
 				$scope.winner(BigBox);
+				$scope.$apply();
 			} else {
 				SmallBox.owner = "P2";
 				$scope.Player_Name = $scope.Player_Names[0];
 				$scope.winner(BigBox);
+				$scope.$apply();
 			}
 		}
 	};
