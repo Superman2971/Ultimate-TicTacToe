@@ -46,7 +46,7 @@
 				<!-- Game Board -->
 			<div class="col-sm-6">
 				<section class="game_board" ng-model="boxes">
-						<div ng-repeat="(big_index, BigBox) in boxes" ng-class="{box: true}">
+						<div ng-repeat="(big_index, BigBox) in firebase_object.boxes_representative" ng-class="{box: true}">
 							<div ng-repeat="(small_index, SmallBox) in BigBox.boxes"  ng-class="{mini_box: true, yellow: SmallBox.owner=='', blue: SmallBox.owner=='P1', red: SmallBox.owner=='P2'}" id="{{SmallBox.ID}}" ng-click="claim(BigBox, SmallBox, SmallBox.owner)">
 							</div>
 						</div>
@@ -62,9 +62,9 @@
 		<div class="row">
 			<div class="col-lg-4"></div>
 			<div class="col-lg-2">
-				<h3 class="visible-xs">{{Player_Names[0]}} Wins: {{P1_win}}</h3>
-				<h3 class="visible-xs">{{Player_Names[1]}} Wins: {{P2_win}}</h3>
-				<h3>Catsgames: {{catsgames}}</h3>
+				<h3 ng-model="P1_win" class="visible-xs">{{Player_Names[0]}} Wins: {{P1_win}}</h3>
+				<h3 ng-model="P2_win" class="visible-xs">{{Player_Names[1]}} Wins: {{P2_win}}</h3>
+				<h3 ng-model="catsgames">Catsgames: {{catsgames}}</h3>
 			</div>
 			<div class="col-lg-2">
 				<button class="btn btn-danger" ng-click="reset()">RESET SCORE</button>

@@ -4,21 +4,25 @@ var TTTapp = angular.module("TTT",["firebase"]);
 // Created our controller
 TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
-	// // CHAT FEATURE
-	// // Variable for my Firebase
-	// var Fire = new Firebase("https://ttt-ultimate.firebaseio.com" + "/chat_room");
-	// $scope.issues = $firebase(Fire);
-	// $scope.addOne = function(){
-	// 	//Adding manually using standard JavaScript
-	// 	Fire.push( {Name:$scope.Player_Name, body:$scope.body} );
-	// 	$scope.Player_Name = $scope.body = "";
-	// };
+/////////////////////////////////////////////// ---- > FIREBASE (Try Later)
+	// CHAT FEATURE
+	// Variable for my Firebase
+	var Fire = new Firebase("https://ttt-ultimate.firebaseio.com" + "/chat_room");
+	$scope.issues = $firebase(Fire);
+	$scope.addOne = function(){
+		//Adding manually using standard JavaScript
+		Fire.push( {Name:$scope.Player_Name, body:$scope.body} );
+		$scope.Player_Name = $scope.body = "";
+	};
 
-	// //Testing Multiplayer stuff
-	// $scope.remote_boxes = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/remote_boxes"));
-	// $scope.remote_Player_Name = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/player"));
-
-	// $scope.random_test = $scope.boxes;
+/////////////////////////////////////////////// ---- > FIREBASE
+	//Connecting local variable to the firebase equivalent
+	$scope.remote_boxes = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/remote_boxes"));
+	$scope.remote_Player_Name = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/player"));
+	$scope.remote_P1_win = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/P1_wins"));
+	$scope.remote_P2_win = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/P2_wins"));
+	$scope.remote_catsgame = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/catsgames"));
+/////////////////////////////////////////////// ---- > FIREBASE
 
 	// Constructor function to develop the game board objects (BigBoxes and SmallBoxes)
 	$scope.boxes = [];
@@ -46,15 +50,38 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 	// Dynamic Player Names - this is the variable they change
 	$scope.Player_Names = ["Player 1", "Player 2"]
 
-	// // More multiplayer stuff --> Binding it!
-	// $scope.remote_boxes.$bind($scope, "boxes");
- //  $scope.$watch("boxes", function() {
- //    return false;
- //  });
-	// $scope.remote_Player_Name.$bind($scope, "Player_Name");
- //  $scope.$watch("Player_Name", function() {
- //    return false;
- //  });
+/////////////////////////////////////////////// ---- > FIREBASE (Try Later)
+	// This container object is what gets synced for the Array of boxes:
+  $scope.firebase_object = {
+    boxes_representative: $scope.boxes
+  };
+
+	// More multiplayer stuff --> Binding it!
+	$scope.remote_boxes.$bind($scope, "firebase_object"); // Now I must replace every entry of boxes (or $scope.boxes) with $scope.firebase_object.boxes_representative
+  $scope.$watch("boxes", function() {
+    return false;
+  });
+
+	$scope.remote_Player_Name.$bind($scope, "Player_Name");
+  $scope.$watch("Player_Name", function() {
+    return false;
+  });
+
+	$scope.remote_P1_win.$bind($scope, "P1_win");
+  $scope.$watch("P1_win", function() {
+    return false;
+  });
+
+	$scope.remote_P2_win.$bind($scope, "P2_win");
+  $scope.$watch("P2_win", function() {
+    return false;
+  });
+
+	$scope.remote_catsgame.$bind($scope, "catsgames");
+  $scope.$watch("catsgames", function() {
+    return false;
+  });
+/////////////////////////////////////////////// ---- > FIREBASE (Try Later)
 
 	// Function to claim ownership over squares
 	$scope.claim = function(BigBox, SmallBox, small_owner){
@@ -194,12 +221,10 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
 		// Added here to remove point additions from the loop (fixed bug)
 		if (P1_Point == true){
-			console.log("There can be only one blue!");
 			$scope.P1_win += 1;
 			clear("P1");
 			P1_Point = false;
 		} else if (P2_Point == true){
-			console.log("There can be only one red!");
 			$scope.P2_win += 1;
 			clear("P2");
 			P2_Point = false;

@@ -71,6 +71,34 @@ li{
 .chat_room{
   display: none;
 }
+.animation{
+  animation: items 1s steps(1) infinite;
+  -webkit-animation: items 1s steps(1) infinite;
+}
+
+/* --------- CSS Animation --------- */
+@keyframes items{
+  0%   {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -130px -256px; width: 26px; height: 18px}
+  15%  {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -170px -256px; width: 26px; height: 18px}
+  30%  {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -210px -256px; width: 26px; height: 18px}
+  45%  {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -250px -256px; width: 26px; height: 18px}
+  60% {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -290px -256px; width: 26px; height: 18px}
+  75% {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -330px -256px; width: 26px; height: 18px}
+  85% {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -370px -256px; width: 26px; height: 18px}
+  100% {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -410px -256px; width: 26px; height: 18px}
+}
+
+@-webkit-keyframes items{
+  0%   {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -130px -256px; width: 26px; height: 18px}
+  15%  {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -170px -256px; width: 26px; height: 18px}
+  30%  {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -210px -256px; width: 26px; height: 18px}
+  45%  {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -250px -256px; width: 26px; height: 18px}
+  60% {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -290px -256px; width: 26px; height: 18px}
+  75% {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -330px -256px; width: 26px; height: 18px}
+  85% {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -370px -256px; width: 26px; height: 18px}
+  100% {background: url('imgs/SNES - Super Mario Kart - General Sprites.gif') no-repeat -410px -256px; width: 26px; height: 18px}
+}
+
 
 /* --------- @Media Query --------- */
 @media only screen and (max-width : 990px) {
