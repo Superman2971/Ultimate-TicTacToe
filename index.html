@@ -38,23 +38,23 @@
 		</div>
 		<!-- Game Board and Player Gifs -->
 		<div class="row">
-			<div ng-model="Player_Names" class="col-sm-3 hidden-xs blue player">
+			<div class="col-sm-3 hidden-xs blue player">
 				<h1>{{Player_Names[0]}}</h1>
-				<input class="name" ng-model="Player_Names[0]"/>
+				<!-- <input class="name" ng-model="Player_Names[0]"/> -->
 				<h3>Wins: {{P1_win}}</h3>
 			</div>
 				<!-- Game Board -->
 			<div class="col-sm-6">
 				<section class="game_board" ng-model="boxes">
-						<div ng-repeat="(big_index, BigBox) in firebase_object.boxes_representative" ng-class="{box: true}">
-							<div ng-repeat="(small_index, SmallBox) in BigBox.boxes"  ng-class="{mini_box: true, yellow: SmallBox.owner=='', blue: SmallBox.owner=='P1', red: SmallBox.owner=='P2'}" id="{{SmallBox.ID}}" ng-click="claim(BigBox, SmallBox, SmallBox.owner)">
+						<div x-ng-repeat="(big_index, BigBox) in firebase_object.boxes_representative" ng-class="{box: true}">
+							<div x-ng-repeat="(small_index, SmallBox) in BigBox.boxes"  ng-class="{mini_box: true, yellow: SmallBox.owner=='', blue: SmallBox.owner=='P1', red: SmallBox.owner=='P2'}" id="{{SmallBox.ID}}" ng-click="claim(BigBox, SmallBox, SmallBox.owner)">
 							</div>
 						</div>
 					</section>
 			</div>
-			<div ng-model="Player_Names" class="col-sm-3 hidden-xs red player">
+			<div class="col-sm-3 hidden-xs red player">
 				<h1>{{Player_Names[1]}}</h1>
-				<input class="name" ng-model="Player_Names[1]"/>
+				<!-- <input class="name" ng-model="Player_Names[1]"/> -->
 				<h3>Wins: {{P2_win}}</h3>
 			</div>
 		</div>
@@ -78,7 +78,7 @@
 				<h1 class="btn btn-default md_btn" ng-click="collapsed = !collapsed">Chat Room</h1>
 				<div ng-class="{chat_room: collapsed}" >
 					<ul class="well well-lg">
-						<li x-ng-repeat="i in issues">
+						<li x-ng-repeat="i in issues|limitTo:3">
 						{{i.Name}} -- {{i.body}}
 						</li>
 					</ul>
