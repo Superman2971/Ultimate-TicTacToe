@@ -41,6 +41,8 @@
 			<div class="col-sm-3 hidden-xs blue player">
 				<h1>{{Player_Names[0]}}</h1>
 				<!-- <input class="name" ng-model="Player_Names[0]"/> -->
+				<button ng-hide="P1_taken" ng-click="claim_P1()">Claim Player 1 Seat</button>
+				<button ng-show="P1_taken">Seat Taken</button>
 				<h3>Wins: {{P1_win}}</h3>
 			</div>
 				<!-- Game Board -->
@@ -55,6 +57,8 @@
 			<div class="col-sm-3 hidden-xs red player">
 				<h1>{{Player_Names[1]}}</h1>
 				<!-- <input class="name" ng-model="Player_Names[1]"/> -->
+				<button ng-hide="P2_taken" ng-click="claim_P2()">Claim Player 2 Seat</button>
+				<button ng-show="P2_taken">Seat Taken</button>
 				<h3>Wins: {{P2_win}}</h3>
 			</div>
 		</div>

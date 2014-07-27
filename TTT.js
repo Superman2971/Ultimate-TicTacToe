@@ -22,6 +22,8 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 	$scope.remote_P1_win = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/P1_wins"));
 	$scope.remote_P2_win = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/P2_wins"));
 	$scope.remote_catsgame = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/catsgames"));
+	$scope.remote_P1_seat = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/P1_seat"));
+	$scope.remote_P2_seat = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/P2_seat"));
 
 // /////////////////////////////////////////////// ---- > FIREBASE
 
@@ -50,6 +52,21 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
 	// Dynamic Player Names - this is the variable they change
 	$scope.Player_Names = ["Player 1", "Player 2"]
+
+	// Adding in multi device switch between players
+	$scope.P1_taken = false;
+	$scope.P2_taken = false;
+	userID = "";
+	$scope.claim_P1 = function(){
+		userID = "P1";
+		$scope.P1_taken = true;
+	}
+	$scope.claim_P2 = function(){
+		userID = "P2";
+		$scope.P2_taken = true;
+	}
+
+	///// -----> NOTES: (will need to make both players to be asigned before anyone can click)(can only click the board of it's your turn)
 
 /////////////////////////////////////////////// ---- > FIREBASE
 	// This container object is what gets synced for the Array of boxes:
@@ -80,6 +97,16 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
 	$scope.remote_catsgame.$bind($scope, "catsgames");
   $scope.$watch("catsgames", function() {
+    return false;
+  });
+
+	$scope.remote_P1_seat.$bind($scope, "P1_taken");
+  $scope.$watch("P1_taken", function() {
+    return false;
+  });
+
+	$scope.remote_P2_seat.$bind($scope, "P2_taken");
+  $scope.$watch("P2_taken", function() {
     return false;
   });
 /////////////////////////////////////////////// ---- > FIREBASE
@@ -258,6 +285,8 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 		$scope.P1_win = 0;
 		$scope.P2_win = 0;
 		$scope.catsgames = 0;
+		$scope.P1_taken = false;
+		$scope.P2_taken = false;
 		clear("");
 	}
 
