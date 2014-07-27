@@ -24,6 +24,7 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 	$scope.remote_catsgame = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/catsgames"));
 	$scope.remote_P1_seat = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/P1_seat"));
 	$scope.remote_P2_seat = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/P2_seat"));
+	$scope.remote_PlayerTurn = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/PlayerTurn"));
 
 // /////////////////////////////////////////////// ---- > FIREBASE
 
@@ -45,7 +46,6 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 			$scope.boxes[i].boxes.push(y);
 		}
 	};
-	console.log($scope.boxes)
 
 	// Variable for the Player
 	$scope.Player_Name = "Player 1";
@@ -56,7 +56,8 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 	// Adding in multi device switch between players
 	$scope.P1_taken = false;
 	$scope.P2_taken = false;
-	userID = "";
+	var userID = "";
+	$scope.PlayerTurn = "P1";
 	$scope.claim_P1 = function(){
 		userID = "P1";
 		$scope.P1_taken = true;
@@ -65,8 +66,6 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 		userID = "P2";
 		$scope.P2_taken = true;
 	}
-
-	///// -----> NOTES: (will need to make both players to be asigned before anyone can click)(can only click the board of it's your turn)
 
 /////////////////////////////////////////////// ---- > FIREBASE
 	// This container object is what gets synced for the Array of boxes:
@@ -109,26 +108,38 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
   $scope.$watch("P2_taken", function() {
     return false;
   });
+
+	$scope.remote_PlayerTurn.$bind($scope, "PlayerTurn");
+  $scope.$watch("PlayerTurn", function() {
+    return false;
+  });
 /////////////////////////////////////////////// ---- > FIREBASE
 
 	// Function to claim ownership over squares
 	$scope.claim = function(BigBox, SmallBox, small_owner){
-
-		// First checks if space is owned
-		if (small_owner == "P1" || small_owner == "P2"){
-			return false;
-		} else {
-			// Then gives small_ownership based on Player and changes turns
-			if ($scope.Player_Name == $scope.Player_Names[0]){
-				SmallBox.owner = "P1";
-				$scope.Player_Name = $scope.Player_Names[1];
-				$scope.winner(BigBox);
+		console.log(userID);
+		console.log($scope.PlayerTurn);
+		// First to check if it is your turn to play
+		if ($scope.PlayerTurn == userID){
+			// Then checking if space is already owned
+			if (small_owner == "P1" || small_owner == "P2"){
+				return false;
 			} else {
-				SmallBox.owner = "P2";
-				$scope.Player_Name = $scope.Player_Names[0];
-				$scope.winner(BigBox);
-			}
+				// Then gives small_ownership based on Player and changes turns
+				if ($scope.Player_Name == $scope.Player_Names[0]){
+					SmallBox.owner = "P1";
+					$scope.Player_Name = $scope.Player_Names[1];
+					$scope.PlayerTurn = "P2";
+					$scope.winner(BigBox);
+				} else {
+					SmallBox.owner = "P2";
+					$scope.Player_Name = $scope.Player_Names[0];
+					$scope.PlayerTurn = "P1";
+					$scope.winner(BigBox);
+				}
+			}		
 		}
+
 	};
 
 	//Winner of the Big Boxes
@@ -287,6 +298,7 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 		$scope.catsgames = 0;
 		$scope.P1_taken = false;
 		$scope.P2_taken = false;
+		$scope.PlayerTurn = "P1";
 		clear("");
 	}
 
