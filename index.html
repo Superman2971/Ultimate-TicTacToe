@@ -66,6 +66,12 @@
 		<div class="row">
 			<div class="col-lg-4"></div>
 			<div class="col-lg-2">
+
+				<button class="visible-xs center-block" ng-hide="P1_taken" ng-click="claim_P1()">Claim Player 1 Seat</button>
+				<button class="visible-xs center-block" ng-show="P1_taken">Seat Taken</button>
+				<br/>
+				<button class="visible-xs center-block" ng-hide="P2_taken" ng-click="claim_P2()">Claim Player 2 Seat</button>
+				<button class="visible-xs center-block" ng-show="P2_taken">Seat Taken</button>
 				<h3 ng-model="P1_win" class="visible-xs">{{Player_Names[0]}} Wins: {{P1_win}}</h3>
 				<h3 ng-model="P2_win" class="visible-xs">{{Player_Names[1]}} Wins: {{P2_win}}</h3>
 				<h3 ng-model="catsgames">Catsgames: {{catsgames}}</h3>
