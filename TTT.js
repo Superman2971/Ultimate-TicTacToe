@@ -117,8 +117,6 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
 	// Function to claim ownership over squares
 	$scope.claim = function(BigBox, SmallBox, small_owner){
-		console.log(userID);
-		console.log($scope.PlayerTurn);
 		// First to check if it is your turn to play
 		if ($scope.PlayerTurn == userID){
 			// Then checking if space is already owned
@@ -208,15 +206,15 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 	function big_winner(){
 
 		// Big Box variables to make life easier
-		var box1 = $scope.boxes[0];
-		var box2 = $scope.boxes[1];
-		var box3 = $scope.boxes[2];
-		var box4 = $scope.boxes[3];
-		var box5 = $scope.boxes[4];
-		var box6 = $scope.boxes[5];
-		var box7 = $scope.boxes[6];
-		var box8 = $scope.boxes[7];
-		var box9 = $scope.boxes[8];
+		var box1 = $scope.firebase_object.boxes_representative[0];
+		var box2 = $scope.firebase_object.boxes_representative[1];
+		var box3 = $scope.firebase_object.boxes_representative[2];
+		var box4 = $scope.firebase_object.boxes_representative[3];
+		var box5 = $scope.firebase_object.boxes_representative[4];
+		var box6 = $scope.firebase_object.boxes_representative[5];
+		var box7 = $scope.firebase_object.boxes_representative[6];
+		var box8 = $scope.firebase_object.boxes_representative[7];
+		var box9 = $scope.firebase_object.boxes_representative[8];
 
 		// Winner possibilities
 		var winners = [
@@ -275,12 +273,18 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
 	// Clear the board
 	function clear(value){
+		console.log("at least I'm trying");
+		console.log($scope.firebase_object.boxes_representative[0].owner);
+		console.log($scope.firebase_object.boxes_representative[0].boxes[0].owner);
 		for (var i = 0; i<9; i++){
-			$scope.boxes[i].owner = value;
+			$scope.firebase_object.boxes_representative[i].owner = value;
 			for (var j = 0; j<9; j++){
-				$scope.boxes[i].boxes[j].owner = value;
+				$scope.firebase_object.boxes_representative[i].boxes[j].owner = value;
 			};
 		};
+		console.log("I made it");
+		console.log($scope.firebase_object.boxes_representative[0].owner);
+		console.log($scope.firebase_object.boxes_representative[0].boxes[0].owner);
 	};
 
 	// Scoreboard
@@ -312,5 +316,24 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
 	// Collapsed Chat Room
 	$scope.collapsed = true;
+
+	//Detect if mobile to turn of the video
+	$scope.Mobile = false;
+	function detectMobile() { 
+		if( navigator.userAgent.match(/Android/i)
+			|| navigator.userAgent.match(/webOS/i)
+			|| navigator.userAgent.match(/iPhone/i)
+			|| navigator.userAgent.match(/iPad/i)
+			|| navigator.userAgent.match(/iPod/i)
+			|| navigator.userAgent.match(/BlackBerry/i)
+			|| navigator.userAgent.match(/Windows Phone/i)
+			){
+			$scope.Mobile = true;
+		}
+		else {
+			return false;
+		}
+	};
+	detectMobile();
 
 });
