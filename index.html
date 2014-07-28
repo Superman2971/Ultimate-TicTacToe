@@ -31,7 +31,7 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<button class="btn btn-success big_btn" ng-show="new_game" ng-click="click_game()">NEW GAME</button>
+				<button ng-model="new_game" class="btn btn-success big_btn" ng-show="new_game" ng-click="click_game()">NEW GAME</button>
 				<h2 ng-hide="new_game" ng-model="Player_Name">{{Player_Name | uppercase}}'S TURN</h2>
 			</div>
 			<div class="col-md-4"></div>

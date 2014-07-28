@@ -25,6 +25,7 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 	$scope.remote_P1_seat = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/P1_seat"));
 	$scope.remote_P2_seat = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/P2_seat"));
 	$scope.remote_PlayerTurn = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/PlayerTurn"));
+	$scope.remote_new_game = $firebase(new Firebase("https://ttt-ultimate.firebaseio.com" + "/new_game"));
 
 // /////////////////////////////////////////////// ---- > FIREBASE
 
@@ -111,6 +112,11 @@ TTTapp.controller("TTTcontroller",function($scope, $firebase){
 
 	$scope.remote_PlayerTurn.$bind($scope, "PlayerTurn");
   $scope.$watch("PlayerTurn", function() {
+    return false;
+  });
+
+	$scope.remote_new_game.$bind($scope, "new_game");
+  $scope.$watch("new_game", function() {
     return false;
   });
 /////////////////////////////////////////////// ---- > FIREBASE
